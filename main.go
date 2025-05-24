@@ -1,10 +1,14 @@
 ﻿package main
 
 import (
+	"fmt"
 	_ "godworld/docs"
 	"godworld/god"
 
 	"github.com/gin-gonic/gin"
+
+	"github.com/pkg/browser"
+
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
@@ -137,4 +141,12 @@ func initEndpoints() {
 func main() {
 
 	initEndpoints()
+
+	url := "http://localhost:8080/swagger/index.html"
+	err := browser.OpenURL(url)
+	if err != nil {
+		fmt.Println("Failed to open browser:", err)
+	} else {
+		fmt.Println("Opened browser to", url)
+	}
 }
