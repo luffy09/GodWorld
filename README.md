@@ -13,10 +13,14 @@ It also features a Swagger-powered UI for exploring the API interactively.
 ```bash
 git clone https://github.com/your-username/GodWorld.git
 cd GodWorld
+```
 
+### 2. To Start
+
+```bash
 go mod tidy
 go run main.go
-
-if swagger doesn't open by itself here is a link
-http://localhost:8080/swagger/index.html
 ```
+
+If swagger doesn't open by itself here is a link
+http://localhost:8080/swagger/index.html
