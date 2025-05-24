@@ -35,7 +35,7 @@ func RegisterHandlers(r *gin.Engine, world *god.World) {
 // @Tags entities
 // @Accept json
 // @Produce json
-// @Param entity body createRequest true "Entity info"
+// @Param entity body CreateRequest true "Entity info"
 // @Success 200 {object} map[string]string
 // @Failure 400 {object} map[string]string
 // @Router /create [post]
@@ -62,7 +62,7 @@ func createHandler(world *god.World) gin.HandlerFunc {
 // @Tags entities
 // @Produce json
 // @Param name path string true "Entity Name"
-// @Success 200 {object} god.GetEntityResponse
+// @Success 200 {object} GetEntityResponse
 // @Failure 404 {object} map[string]string
 // @Router /get/{name} [get]
 func getHandler(world *god.World) gin.HandlerFunc {
@@ -118,7 +118,7 @@ func dumpHandler(world *god.World) gin.HandlerFunc {
 // @Description Shows everything about the current world
 // @Tags world
 // @Produce json
-// @Success 200 {object} god.DumpResponse
+// @Success 200 {object} DumpResponse
 // @Router /dump/world [get]
 func dumpWorldHandler(world *god.World) gin.HandlerFunc {
 	return func(c *gin.Context) {

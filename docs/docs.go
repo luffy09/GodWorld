@@ -35,7 +35,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/main.createRequest"
+                            "$ref": "#/definitions/api.CreateRequest"
                         }
                     }
                 ],
@@ -130,7 +130,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/god.DumpResponse"
+                            "$ref": "#/definitions/api.DumpResponse"
                         }
                     }
                 }
@@ -159,7 +159,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/god.GetEntityResponse"
+                            "$ref": "#/definitions/api.GetEntityResponse"
                         }
                     },
                     "404": {
@@ -176,7 +176,24 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "god.DumpResponse": {
+        "api.CreateRequest": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "properties": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "api.DumpResponse": {
             "type": "object",
             "properties": {
                 "entities": {
@@ -197,21 +214,7 @@ const docTemplate = `{
                 }
             }
         },
-        "god.Entity": {
-            "type": "object",
-            "properties": {
-                "name": {
-                    "type": "string"
-                },
-                "properties": {
-                    "type": "object",
-                    "additionalProperties": {
-                        "type": "string"
-                    }
-                }
-            }
-        },
-        "god.GetEntityResponse": {
+        "api.GetEntityResponse": {
             "type": "object",
             "properties": {
                 "chaos_msg": {
@@ -222,11 +225,8 @@ const docTemplate = `{
                 }
             }
         },
-        "main.createRequest": {
+        "god.Entity": {
             "type": "object",
-            "required": [
-                "name"
-            ],
             "properties": {
                 "name": {
                     "type": "string"
@@ -244,12 +244,12 @@ const docTemplate = `{
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "1.0",
-	Host:             "localhost:8080",
-	BasePath:         "/",
+	Version:          "",
+	Host:             "",
+	BasePath:         "",
 	Schemes:          []string{},
-	Title:            "God World API",
-	Description:      "A divine world simulator with unpredictable outcomes.",
+	Title:            "",
+	Description:      "",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

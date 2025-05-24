@@ -1,13 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "A divine world simulator with unpredictable outcomes.",
-        "title": "God World API",
-        "contact": {},
-        "version": "1.0"
+        "contact": {}
     },
-    "host": "localhost:8080",
-    "basePath": "/",
     "paths": {
         "/create": {
             "post": {
@@ -29,7 +24,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/main.createRequest"
+                            "$ref": "#/definitions/api.CreateRequest"
                         }
                     }
                 ],
@@ -124,7 +119,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/god.DumpResponse"
+                            "$ref": "#/definitions/api.DumpResponse"
                         }
                     }
                 }
@@ -153,7 +148,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/god.GetEntityResponse"
+                            "$ref": "#/definitions/api.GetEntityResponse"
                         }
                     },
                     "404": {
@@ -170,7 +165,24 @@
         }
     },
     "definitions": {
-        "god.DumpResponse": {
+        "api.CreateRequest": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "properties": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "api.DumpResponse": {
             "type": "object",
             "properties": {
                 "entities": {
@@ -191,21 +203,7 @@
                 }
             }
         },
-        "god.Entity": {
-            "type": "object",
-            "properties": {
-                "name": {
-                    "type": "string"
-                },
-                "properties": {
-                    "type": "object",
-                    "additionalProperties": {
-                        "type": "string"
-                    }
-                }
-            }
-        },
-        "god.GetEntityResponse": {
+        "api.GetEntityResponse": {
             "type": "object",
             "properties": {
                 "chaos_msg": {
@@ -216,11 +214,8 @@
                 }
             }
         },
-        "main.createRequest": {
+        "god.Entity": {
             "type": "object",
-            "required": [
-                "name"
-            ],
             "properties": {
                 "name": {
                     "type": "string"

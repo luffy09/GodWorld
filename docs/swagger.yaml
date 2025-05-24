@@ -1,6 +1,16 @@
-basePath: /
 definitions:
-  god.DumpResponse:
+  api.CreateRequest:
+    properties:
+      name:
+        type: string
+      properties:
+        additionalProperties:
+          type: string
+        type: object
+    required:
+    - name
+    type: object
+  api.DumpResponse:
     properties:
       entities:
         additionalProperties:
@@ -14,6 +24,13 @@ definitions:
           type: string
         type: array
     type: object
+  api.GetEntityResponse:
+    properties:
+      chaos_msg:
+        type: string
+      entity:
+        $ref: '#/definitions/god.Entity'
+    type: object
   god.Entity:
     properties:
       name:
@@ -23,30 +40,8 @@ definitions:
           type: string
         type: object
     type: object
-  god.GetEntityResponse:
-    properties:
-      chaos_msg:
-        type: string
-      entity:
-        $ref: '#/definitions/god.Entity'
-    type: object
-  main.createRequest:
-    properties:
-      name:
-        type: string
-      properties:
-        additionalProperties:
-          type: string
-        type: object
-    required:
-    - name
-    type: object
-host: localhost:8080
 info:
   contact: {}
-  description: A divine world simulator with unpredictable outcomes.
-  title: God World API
-  version: "1.0"
 paths:
   /create:
     post:
@@ -59,7 +54,7 @@ paths:
         name: entity
         required: true
         schema:
-          $ref: '#/definitions/main.createRequest'
+          $ref: '#/definitions/api.CreateRequest'
       produces:
       - application/json
       responses:
@@ -123,7 +118,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/god.DumpResponse'
+            $ref: '#/definitions/api.DumpResponse'
       summary: Display world state
       tags:
       - world
@@ -143,7 +138,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/god.GetEntityResponse'
+            $ref: '#/definitions/api.GetEntityResponse'
         "404":
           description: Not Found
           schema:
