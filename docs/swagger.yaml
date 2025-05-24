@@ -1,0 +1,156 @@
+basePath: /
+definitions:
+  god.DumpResponse:
+    properties:
+      entities:
+        additionalProperties:
+          additionalProperties:
+            type: string
+          type: object
+        description: map of entity name → properties
+        type: object
+      events:
+        items:
+          type: string
+        type: array
+    type: object
+  god.Entity:
+    properties:
+      name:
+        type: string
+      properties:
+        additionalProperties:
+          type: string
+        type: object
+    type: object
+  god.GetEntityResponse:
+    properties:
+      chaos_msg:
+        type: string
+      entity:
+        $ref: '#/definitions/god.Entity'
+    type: object
+  main.createRequest:
+    properties:
+      name:
+        type: string
+      properties:
+        additionalProperties:
+          type: string
+        type: object
+    required:
+    - name
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: A divine world simulator with unpredictable outcomes.
+  title: God World API
+  version: "1.0"
+paths:
+  /create:
+    post:
+      consumes:
+      - application/json
+      description: Creates a new entity in God World. Chaos may interfere.
+      parameters:
+      - description: Entity info
+        in: body
+        name: entity
+        required: true
+        schema:
+          $ref: '#/definitions/main.createRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create an entity
+      tags:
+      - entities
+  /destroy/{name}:
+    delete:
+      description: Removes an entity by name. Chaos may interfere.
+      parameters:
+      - description: Entity Name
+        in: path
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Destroy an entity
+      tags:
+      - entities
+  /dump:
+    get:
+      description: Shows all entities currently in the world
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              $ref: '#/definitions/god.Entity'
+            type: object
+      summary: Display world Entities
+      tags:
+      - world
+  /dump/world:
+    get:
+      description: Shows everything about the current world
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/god.DumpResponse'
+      summary: Display world state
+      tags:
+      - world
+  /get/{name}:
+    get:
+      description: Retrieves an entity by name, may include chaos message if chaos
+        interfered
+      parameters:
+      - description: Entity Name
+        in: path
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/god.GetEntityResponse'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get an entity
+      tags:
+      - entities
+swagger: "2.0"
