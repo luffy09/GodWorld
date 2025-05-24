@@ -24,3 +24,14 @@ go run main.go
 
 If swagger doesn't open by itself here is a link
 http://localhost:8080/swagger/index.html
+
+### 3. Example Create Input
+```bash
+{
+  "name": "Planet",
+  "properties": {
+    "Surface": "Rock",
+    "Atmosphere": "Hydrogen"
+  }
+}
+```
