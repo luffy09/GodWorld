@@ -18,14 +18,6 @@ type World struct {
 	lEvents  []string
 	mu       sync.RWMutex
 }
-type DumpResponse struct {
-	Entities map[string]map[string]string // map of entity name → properties
-	Events   []string
-}
-type GetEntityResponse struct {
-	Entity   Entity `json:"entity"`
-	ChaosMsg string `json:"chaos_msg,omitempty"`
-}
 
 func NewWorld() *World {
 	w := &World{
@@ -126,7 +118,7 @@ func (w *World) Destroy(name string) (chaosMsg string) {
 	return chaosMsg
 }
 
-func (w *World) Dump() DumpResponse {
+func (w *World) Dump() (map[string]map[string]string, []string) {
 	w.mu.RLock()
 	defer w.mu.RUnlock()
 
@@ -135,14 +127,10 @@ func (w *World) Dump() DumpResponse {
 		entities[name] = entity.Properties
 	}
 
-	// Assuming w.lEvents is []string
 	eventsCopy := make([]string, len(w.lEvents))
 	copy(eventsCopy, w.lEvents)
 
-	return DumpResponse{
-		Entities: entities,
-		Events:   eventsCopy,
-	}
+	return entities, eventsCopy
 }
 
 func getRandomName() string {
